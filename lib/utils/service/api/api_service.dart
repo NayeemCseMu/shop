@@ -27,8 +27,9 @@ class ApiService {
         responseData.first.forEach((item) {
           print(item['slNo']);
           print(item['sellerName']);
-          listData.add(TrendingSellerModel.fromJson(item));
+          listData.add(TrendingSellerModel.fromJson(item!));
         });
+        return listData;
       }
     } on SocketException {
       throw "";
