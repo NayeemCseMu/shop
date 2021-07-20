@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shop/constants/size.dart';
+import 'package:shop/utils/helpers/lazy_loader.dart';
 
 class Item extends StatelessWidget {
   const Item({
@@ -17,9 +18,8 @@ class Item extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // height: ResponsiveSize.screenHeight * 0.2,
       width: getScreeWidth(100),
-      margin: EdgeInsets.only(right: 10, bottom: 0),
+      margin: EdgeInsets.only(left: 10, bottom: 5, right: 10),
       child: Stack(
         fit: StackFit.expand,
         children: [
@@ -29,8 +29,9 @@ class Item extends StatelessWidget {
               imageUrl: itemUrl!,
               fit: BoxFit.cover,
               progressIndicatorBuilder: (context, url, downloadProgress) =>
-                  Center(
-                child: Text("Loading..."),
+                  LazyLoading(
+                height: 100,
+                width: getScreeWidth(100),
               ),
               errorWidget: (context, url, error) => Icon(Icons.error),
             ),
@@ -38,31 +39,36 @@ class Item extends StatelessWidget {
           Positioned(
             top: 5,
             left: 5,
-            child: CircleAvatar(
-              radius: 15,
-              backgroundImage: NetworkImage(itemLogo!),
-              backgroundColor: Colors.black.withOpacity(0.3),
+            child: CachedNetworkImage(
+              imageUrl: itemLogo!,
+              imageBuilder: (context, imageProvider) => CircleAvatar(
+                radius: 15,
+                backgroundImage: imageProvider,
+                backgroundColor: Colors.transparent,
+              ),
+              placeholder: (context, url) =>
+                  CircleAvatar(radius: 15, backgroundColor: Colors.transparent),
+              errorWidget: (context, url, error) => Icon(Icons.error),
             ),
           ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
+          Align(
+            alignment: Alignment.bottomCenter,
             child: Container(
-              height: 40,
+              // height: 35,
+              width: double.infinity,
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(0.3),
                 borderRadius:
                     BorderRadius.vertical(bottom: Radius.circular(10)),
               ),
-              padding: EdgeInsets.symmetric(horizontal: 5),
-              alignment: Alignment.center,
+              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
               child: Text(
                 itemName!,
-                maxLines: 2,
+                maxLines: 3,
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(color: Colors.white),
+                style:
+                    TextStyle(fontSize: getTextSize(14), color: Colors.white),
               ),
             ),
           ),

@@ -7,12 +7,15 @@ class HeadingText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text!,
-      style: TextStyle(
-        fontSize: getTextSize(20),
-        fontWeight: FontWeight.w700,
-        color: Colors.black,
+    return Padding(
+      padding: const EdgeInsets.only(left: 10, top: 10),
+      child: Text(
+        text!,
+        style: TextStyle(
+          fontSize: getTextSize(16),
+          fontWeight: FontWeight.w800,
+          color: Colors.black,
+        ),
       ),
     );
   }

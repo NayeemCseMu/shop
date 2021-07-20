@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shop/constants/size.dart';
 
 class BackgroundCard extends StatelessWidget {
   const BackgroundCard({
@@ -14,7 +13,7 @@ class BackgroundCard extends StatelessWidget {
     return Container(
       height: height,
       decoration: boxDecoration(),
-      padding: EdgeInsets.only(top: 20, left: 10),
+      
       child: widgetChild,
     );
   }

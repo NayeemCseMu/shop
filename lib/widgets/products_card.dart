@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shop/constants/size.dart';
+import 'package:shop/utils/helpers/lazy_loader.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
@@ -19,7 +20,7 @@ class ProductCard extends StatelessWidget {
     return Container(
       width: getScreeWidth(100),
       decoration: itemBoxDecoration(),
-      margin: EdgeInsets.only(bottom: 10, right: 10),
+      margin: EdgeInsets.only(left: 10, bottom: 5, right: 10),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -32,8 +33,9 @@ class ProductCard extends StatelessWidget {
                 imageUrl: itemUrl!,
                 fit: BoxFit.cover,
                 progressIndicatorBuilder: (context, url, downloadProgress) =>
-                    Center(
-                  child: Text("Loading..."),
+                    LazyLoading(
+                  height: 100,
+                  width: getScreeWidth(100),
                 ),
                 errorWidget: (context, url, error) => Icon(Icons.error),
               ),
@@ -55,6 +57,7 @@ class ProductCard extends StatelessWidget {
                     fontSize: getTextSize(12),
                   ),
                 ),
+                getVerticalSpace(2),
                 FittedBox(
                   child: Text(
                     shortDetails!,
