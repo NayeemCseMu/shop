@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop/constants/size.dart';
 import 'package:shop/module/dashboard/controller/controller.dart';
+import 'package:shop/widgets/arrivals.dart';
+import 'package:shop/widgets/heading.dart';
+import 'package:shop/widgets/shops.dart';
+import 'package:shop/widgets/trending_product.dart';
+import 'package:shop/widgets/trending_seller.dart';
 
 class HomeScreen extends StatefulWidget {
   static final String routeName = "/home";
@@ -22,6 +27,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future _getLoad() async {
     await productController!.trendSellerController();
+    await productController!.trendProductController();
+    await productController!.newArrivalController();
+    await productController!.newShopController();
   }
 
   @override
@@ -31,67 +39,33 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(),
       body: Obx(
         () => Container(
-          height: ResponsiveSize.screenHeight * 0.25,
-          margin: EdgeInsets.only(top: 20, left: 20),
+          height: ResponsiveSize.screenHeight,
+          margin: EdgeInsets.only(top: 10, left: 10),
           child: productController!.isLoading.value
               ? Center(
                   child: CircularProgressIndicator(),
                 )
-              : ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: productController!.trendSellerData.length,
-                  itemBuilder: (ctx, index) {
-                    final item = productController!.trendSellerData[index];
-                    return Container(
-                      height: 100,
-                      width: 120,
-                      margin: EdgeInsets.only(right: 20),
-                      child: Stack(
-                        fit: StackFit.expand,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.network(
-                              item.sellerItemPhoto!,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Positioned(
-                            top: 5,
-                            left: 5,
-                            child: CircleAvatar(
-                              radius: 15,
-                              backgroundImage:
-                                  NetworkImage(item.sellerProfilePhoto!),
-                              backgroundColor: Colors.black.withOpacity(0.3),
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 0,
-                            left: 0,
-                            right: 0,
-                            child: Container(
-                              height: 40,
-                              decoration: BoxDecoration(
-                                color: Colors.black.withOpacity(0.5),
-                                borderRadius: BorderRadius.vertical(
-                                    bottom: Radius.circular(10)),
-                              ),
-                              padding: EdgeInsets.symmetric(horizontal: 5),
-                              alignment: Alignment.center,
-                              child: Text(
-                                item.sellerName!,
-                                maxLines: 2,
-                                textAlign: TextAlign.center,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  }),
+              : ListView(
+                  // crossAxisAlignment: CrossAxisAlignment.start,
+                  padding: EdgeInsets.only(bottom: 20),
+                  children: [
+                    HeadingText(text: "Trending Sellers"),
+                    getVerticalSpace(10),
+                    TrendingSeller(),
+                    getVerticalSpace(20),
+                    HeadingText(text: "Trending Products"),
+                    getVerticalSpace(10),
+                    TrendingProduct(),
+                    getVerticalSpace(20),
+                    HeadingText(text: "New Arrivals"),
+                    getVerticalSpace(10),
+                    Arrivals(),
+                    getVerticalSpace(20),
+                    HeadingText(text: "New Shps"),
+                    getVerticalSpace(10),
+                    Shops(),
+                  ],
+                ),
         ),
       ),
     );
