@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop/constants/size.dart';
-import 'package:shop/module/dashboard/controller/controller.dart';
-import 'package:shop/widgets/arrivals.dart';
-import 'package:shop/widgets/heading.dart';
-import 'package:shop/widgets/shops.dart';
-import 'package:shop/widgets/trending_product.dart';
-import 'package:shop/widgets/trending_seller.dart';
+import 'package:shop/module/dashboard/controller/data_controller.dart';
+import 'package:shop/module/dashboard/screens/home/components/arrivals.dart';
+import 'package:shop/module/dashboard/screens/home/components/prodcuts.dart';
+import 'package:shop/module/dashboard/screens/home/components/shops.dart';
+import 'package:shop/module/dashboard/screens/home/components/trending_product.dart';
+import 'package:shop/module/dashboard/screens/home/components/trending_seller.dart';
 
 class HomeScreen extends StatefulWidget {
   static final String routeName = "/home";
@@ -16,12 +16,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late ProductController? productController;
+  late DataController? productController;
 
   @override
   void initState() {
     super.initState();
-    productController = Get.put(ProductController());
+    productController = Get.put(DataController());
     _getLoad();
   }
 
@@ -30,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
     await productController!.trendProductController();
     await productController!.newArrivalController();
     await productController!.newShopController();
+    await productController!.productsController();
   }
 
   @override
@@ -38,32 +39,29 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(),
       body: Obx(
-        () => Container(
+        () => SizedBox(
           height: ResponsiveSize.screenHeight,
-          margin: EdgeInsets.only(top: 10, left: 10),
           child: productController!.isLoading.value
               ? Center(
                   child: CircularProgressIndicator(),
                 )
               : ListView(
-                  // crossAxisAlignment: CrossAxisAlignment.start,
-                  padding: EdgeInsets.only(bottom: 20),
+                  padding: const EdgeInsets.only(top: 10, bottom: 20, left: 5),
                   children: [
-                    HeadingText(text: "Trending Sellers"),
-                    getVerticalSpace(10),
                     TrendingSeller(),
-                    getVerticalSpace(20),
-                    HeadingText(text: "Trending Products"),
-                    getVerticalSpace(10),
                     TrendingProduct(),
-                    getVerticalSpace(20),
-                    HeadingText(text: "New Arrivals"),
-                    getVerticalSpace(10),
+                    Products(itemCount: 3, startFrom: 0),
+                    getVerticalSpace(5),
                     Arrivals(),
-                    getVerticalSpace(20),
-                    HeadingText(text: "New Shps"),
                     getVerticalSpace(10),
+                    Products(itemCount: 3, startFrom: 3),
+                    getVerticalSpace(5),
                     Shops(),
+                    getVerticalSpace(10),
+                    Products(
+                      itemCount: productController!.productsData.length - 6,
+                      startFrom: 6,
+                    ),
                   ],
                 ),
         ),

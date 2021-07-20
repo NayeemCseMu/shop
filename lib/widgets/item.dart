@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shop/constants/size.dart';
 
 class Item extends StatelessWidget {
   const Item({
@@ -16,9 +17,9 @@ class Item extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
-      width: 120,
-      margin: EdgeInsets.only(right: 20),
+      // height: ResponsiveSize.screenHeight * 0.2,
+      width: getScreeWidth(100),
+      margin: EdgeInsets.only(right: 10, bottom: 0),
       child: Stack(
         fit: StackFit.expand,
         children: [
@@ -28,17 +29,11 @@ class Item extends StatelessWidget {
               imageUrl: itemUrl!,
               fit: BoxFit.cover,
               progressIndicatorBuilder: (context, url, downloadProgress) =>
-                  Padding(
-                padding: const EdgeInsets.all(8.0),
+                  Center(
                 child: Text("Loading..."),
               ),
               errorWidget: (context, url, error) => Icon(Icons.error),
             ),
-
-            //   Image.network(
-            //     ,
-            //     fit: BoxFit.cover,
-            //   ),
           ),
           Positioned(
             top: 5,
@@ -56,7 +51,7 @@ class Item extends StatelessWidget {
             child: Container(
               height: 40,
               decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.5),
+                color: Colors.black.withOpacity(0.3),
                 borderRadius:
                     BorderRadius.vertical(bottom: Radius.circular(10)),
               ),
