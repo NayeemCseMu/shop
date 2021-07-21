@@ -4,6 +4,7 @@ import 'config/routes/route.dart';
 import 'module/dashboard/screens/home/home_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 

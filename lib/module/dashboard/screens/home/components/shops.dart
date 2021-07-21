@@ -18,25 +18,24 @@ class Shops extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           HeadingText(text: "New Shops"),
-          getVerticalSpace(10),
-           if (dataController!.isLoading.value)
+          if (dataController!.isLoading.value)
             LoaderWidget()
           else
-          SizedBox(
-            height: ResponsiveSize.screenHeight * 0.2,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: dataController.newShopsData.length,
-              itemBuilder: (ctx, index) {
-                final item = dataController.newShopsData[index];
-                return Item(
-                  itemName: item.sellerName!,
-                  itemUrl: item.sellerItemPhoto,
-                  itemLogo: item.sellerProfilePhoto,
-                );
-              },
+            SizedBox(
+              height: ResponsiveSize.screenHeight * 0.18,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: dataController.newShopsData.length,
+                itemBuilder: (ctx, index) {
+                  final item = dataController.newShopsData[index];
+                  return Item(
+                    itemName: item.sellerName!,
+                    itemUrl: item.sellerItemPhoto,
+                    itemLogo: item.sellerProfilePhoto,
+                  );
+                },
+              ),
             ),
-          ),
         ],
       ),
     );

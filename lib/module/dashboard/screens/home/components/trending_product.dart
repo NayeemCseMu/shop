@@ -18,7 +18,7 @@ class TrendingProduct extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           HeadingText(text: "Trending Products"),
-          getVerticalSpace(20),
+         
            if (dataController!.isLoading.value)
             LoaderWidget()
           else

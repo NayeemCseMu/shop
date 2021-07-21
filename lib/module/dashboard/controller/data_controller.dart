@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:shop/module/dashboard/controller/base_controller.dart';
 import 'package:shop/module/dashboard/model/new_arrivals_model.dart';
 import 'package:shop/module/dashboard/model/new_shops_model.dart';
 import 'package:shop/module/dashboard/model/products_model.dart';
@@ -6,8 +7,9 @@ import 'package:shop/module/dashboard/model/trending_product_model.dart';
 import 'package:shop/module/dashboard/model/trending_seller_model.dart';
 import 'package:shop/utils/service/api/api_service.dart';
 
-class DataController extends GetxController {
+class DataController extends GetxController with BaseController {
   var isLoading = false.obs;
+  var noInternet = false.obs;
   var trendSellerData = <TrendingSellerModel>[].obs;
   var trendProductData = <TrendingProductModel>[].obs;
   var newArrivalsData = <NewArrivalsModel>[].obs;
@@ -17,6 +19,7 @@ class DataController extends GetxController {
 //CONTROLLER TRENDING SELLER
   Future trendSellerController() async {
     try {
+      noInternet(false);
       isLoading(true);
       final result = await ApiService.instance.getTrendingSeller();
 
@@ -24,7 +27,8 @@ class DataController extends GetxController {
         this.trendSellerData.assignAll(result);
       }
     } catch (e) {
-      print(e.toString());
+      noInternet(true);
+      handleError(e);
     } finally {
       isLoading(false);
     }
@@ -40,7 +44,7 @@ class DataController extends GetxController {
         this.trendProductData.assignAll(result);
       }
     } catch (e) {
-      print(e.toString());
+      handleError(e);
     } finally {
       isLoading(false);
     }
@@ -56,7 +60,7 @@ class DataController extends GetxController {
         this.newArrivalsData.assignAll(result);
       }
     } catch (e) {
-      print(e.toString());
+      handleError(e);
     } finally {
       isLoading(false);
     }
@@ -72,7 +76,7 @@ class DataController extends GetxController {
         this.newShopsData.assignAll(result);
       }
     } catch (e) {
-      print(e.toString());
+      handleError(e);
     } finally {
       isLoading(false);
     }
@@ -88,7 +92,7 @@ class DataController extends GetxController {
         this.productsData.assignAll(result);
       }
     } catch (e) {
-      print(e.toString());
+      handleError(e);
     } finally {
       isLoading(false);
     }

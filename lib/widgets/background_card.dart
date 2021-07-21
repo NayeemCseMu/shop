@@ -12,8 +12,8 @@ class BackgroundCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: height,
+      margin: EdgeInsets.only(bottom: 10),
       decoration: boxDecoration(),
-      
       child: widgetChild,
     );
   }

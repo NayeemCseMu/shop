@@ -31,8 +31,9 @@ class ProductCard extends StatelessWidget {
               borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
               child: CachedNetworkImage(
                 imageUrl: itemUrl!,
+                height: 100,width: 100,
                 fit: BoxFit.cover,
-                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                progressIndicatorBuilder: (context, url, _) =>
                     LazyLoading(
                   height: 100,
                   width: getScreeWidth(100),

@@ -28,7 +28,7 @@ class Item extends StatelessWidget {
             child: CachedNetworkImage(
               imageUrl: itemUrl!,
               fit: BoxFit.cover,
-              progressIndicatorBuilder: (context, url, downloadProgress) =>
+              progressIndicatorBuilder: (context, url, _) =>
                   LazyLoading(
                 height: 100,
                 width: getScreeWidth(100),
@@ -41,6 +41,7 @@ class Item extends StatelessWidget {
             left: 5,
             child: CachedNetworkImage(
               imageUrl: itemLogo!,
+              height: 30,width: 100,
               imageBuilder: (context, imageProvider) => CircleAvatar(
                 radius: 15,
                 backgroundImage: imageProvider,

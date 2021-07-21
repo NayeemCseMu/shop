@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop/constants/size.dart';
 import 'package:shop/module/dashboard/controller/data_controller.dart';
-import 'package:shop/utils/helpers/lazy_loader.dart';
 import 'package:shop/widgets/loader_widget.dart';
 import '../../../../../widgets/background_card.dart';
 import '../../../../../widgets/heading.dart';
@@ -18,12 +17,11 @@ class TrendingSeller extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           HeadingText(text: "Trending Sellers"),
-          getVerticalSpace(10),
           if (dataController!.isLoading.value)
             LoaderWidget()
           else
             SizedBox(
-              height: ResponsiveSize.screenHeight * 0.2,
+              height: ResponsiveSize.screenHeight * 0.18,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: dataController.trendSellerData.length,

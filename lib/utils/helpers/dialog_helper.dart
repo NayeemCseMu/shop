@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shop/constants/size.dart';
 
 class DialogHelper {
   DialogHelper._();
@@ -10,6 +11,7 @@ class DialogHelper {
       {String? title = 'Error', String? description = 'Something went wrong'}) {
     Get.dialog(
       Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -17,22 +19,21 @@ class DialogHelper {
             children: [
               Text(
                 title!,
-                style: Get.textTheme.headline4,
-              ),
-              Text(
-                description!,
                 style: Get.textTheme.headline6,
               ),
+              Text(description!, style: Get.textTheme.bodyText1),
+              getVerticalSpace(10),
               ElevatedButton(
                 onPressed: () {
                   if (Get.isDialogOpen!) Get.back();
                 },
-                child: Text('Okay'),
+                child: Text('Dismiss'),
               ),
             ],
           ),
         ),
       ),
+      barrierDismissible: false,
     );
   }
 

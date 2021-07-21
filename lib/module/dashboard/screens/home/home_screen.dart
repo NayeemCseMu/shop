@@ -7,7 +7,6 @@ import 'package:shop/module/dashboard/screens/home/components/prodcuts.dart';
 import 'package:shop/module/dashboard/screens/home/components/shops.dart';
 import 'package:shop/module/dashboard/screens/home/components/trending_product.dart';
 import 'package:shop/module/dashboard/screens/home/components/trending_seller.dart';
-import 'package:shop/widgets/loader_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   static final String routeName = "/home";
@@ -45,30 +44,28 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Obx _buildBody() {
     return Obx(
-      () => SizedBox(
-        height: ResponsiveSize.screenHeight,
-        child: ListView(
-          padding: const EdgeInsets.only(top: 10, bottom: 20, left: 5),
-          children: [
-            TrendingSeller(),
-            getVerticalSpace(10),
-            TrendingProduct(),
-            getVerticalSpace(10),
-            Products(itemCount: 3, startFrom: 0),
-            getVerticalSpace(10),
-            Arrivals(),
-            getVerticalSpace(10),
-            Products(itemCount: 3, startFrom: 3),
-            getVerticalSpace(10),
-            Shops(),
-            getVerticalSpace(10),
-            Products(
-              itemCount: dataController!.isLoading.value
-                  ? 4
-                  : dataController!.productsData.length - 6,
-              startFrom: 6,
-            ),
-          ],
+      () => RefreshIndicator(
+        onRefresh: _getLoad,
+        child: SizedBox(
+          height: ResponsiveSize.screenHeight,
+          child: ListView(
+            padding: const EdgeInsets.only(top: 10, bottom: 20, left: 5),
+            children: [
+              TrendingSeller(),
+              TrendingProduct(),
+              Products(itemCount: 3, startFrom: 0),
+              Arrivals(),
+              Products(itemCount: 3, startFrom: 3),
+              Shops(),
+              Products(
+                itemCount: 
+                dataController!.isLoading.value
+                    ? 4
+                    : dataController!.productsData.length - 6 ,
+                startFrom: 0,
+              ),
+            ],
+          ),
         ),
       ),
     );

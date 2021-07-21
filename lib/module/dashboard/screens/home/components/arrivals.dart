@@ -17,7 +17,7 @@ class Arrivals extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           HeadingText(text: "New Arrivals"),
-          getVerticalSpace(20),
+          
            if (dataController!.isLoading.value)
             LoaderWidget()
           else
