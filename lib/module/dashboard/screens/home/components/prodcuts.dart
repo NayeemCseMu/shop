@@ -46,8 +46,6 @@ class Products extends StatelessWidget {
                           contentPadding: EdgeInsets.zero,
                           leading: CachedNetworkImage(
                             imageUrl: item.companyLogo!,
-                            height: 100,
-                            width: 100,
                             imageBuilder: (context, imageProvider) =>
                                 CircleAvatar(
                               // radius: 15,
@@ -89,13 +87,13 @@ class Products extends StatelessWidget {
                             cardBottom(
                                 text: "${item.currencyCode} ${item.unitPrice}"
                                     .toUpperCase(),
-                                icon: Icons.money),
+                                icon: Icons.card_giftcard),
                             cardBottom(
                                 text: "${item.availableStock} Available Stock",
                                 icon: Icons.menu),
                             cardBottom(
                                 text: "${item.orderQty} Order(s)",
-                                icon: Icons.production_quantity_limits),
+                                icon: Icons.shopping_cart_outlined),
                           ],
                         ),
                         getVerticalSpace(10)
