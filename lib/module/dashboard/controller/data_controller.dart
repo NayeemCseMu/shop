@@ -10,6 +10,7 @@ import 'package:shop/utils/service/api/api_service.dart';
 class DataController extends GetxController with BaseController {
   var isLoading = false.obs;
   var noInternet = false.obs;
+  var isScrolling = false.obs;
   var trendSellerData = <TrendingSellerModel>[].obs;
   var trendProductData = <TrendingProductModel>[].obs;
   var newArrivalsData = <NewArrivalsModel>[].obs;

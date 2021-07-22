@@ -17,12 +17,22 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late DataController? dataController;
+  ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     dataController = Get.put(DataController());
+    scrollController.addListener(listen);
     _getLoad();
+  }
+
+  listen() {
+    if (scrollController.position.pixels > 200) {
+      dataController!.isScrolling(true);
+    } else {
+      dataController!.isScrolling(false);
+    }
   }
 
   Future _getLoad() async {
@@ -39,6 +49,25 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: _buildAppBar(),
       body: _buildBody(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
+      floatingActionButton: AnimatedContainer(
+        padding: const EdgeInsets.only(top: 80.0),
+        duration: 300.milliseconds,
+        curve: Curves.ease,
+        child: Obx(() {
+          return dataController!.isScrolling.value
+              ? FloatingActionButton(
+                  mini: true,
+                  backgroundColor: Colors.deepPurple,
+                  onPressed: () {
+                    scrollController.animateTo(0,
+                        duration: 2.seconds, curve: Curves.ease);
+                  },
+                  child: Icon(Icons.arrow_upward, size: 20),
+                )
+              : SizedBox();
+        }),
+      ),
     );
   }
 
@@ -49,7 +78,9 @@ class _HomeScreenState extends State<HomeScreen> {
         child: SizedBox(
           height: ResponsiveSize.screenHeight,
           child: ListView(
-            padding: const EdgeInsets.only(top: 10, bottom: 20, left: 5),
+            controller: scrollController,
+            padding:
+                const EdgeInsets.only(top: 10, bottom: 20, left: 5, right: 5),
             children: [
               TrendingSeller(),
               TrendingProduct(),
@@ -58,10 +89,9 @@ class _HomeScreenState extends State<HomeScreen> {
               Products(itemCount: 3, startFrom: 3),
               Shops(),
               Products(
-                itemCount: 
-                dataController!.isLoading.value
+                itemCount: dataController!.isLoading.value
                     ? 4
-                    : dataController!.productsData.length - 6 ,
+                    : dataController!.productsData.length - 6,
                 startFrom: 0,
               ),
             ],

@@ -37,8 +37,8 @@ class Products extends StatelessWidget {
                 return BackgroundCard(
                   height: ResponsiveSize.screenHeight * 0.45,
                   widgetChild: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 0),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -89,7 +89,8 @@ class Products extends StatelessWidget {
                                     .toUpperCase(),
                                 icon: Icons.card_giftcard),
                             cardBottom(
-                                text: "${item.availableStock} Available Stock",
+                                text:
+                                    "${item.availableStock} Available Stock",
                                 icon: Icons.menu),
                             cardBottom(
                                 text: "${item.orderQty} Order(s)",
