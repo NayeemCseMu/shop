@@ -17,6 +17,16 @@ class DataController extends GetxController with BaseController {
   var newShopsData = <NewShopsModel>[].obs;
   var productsData = <ProductsModel>[].obs;
 
+  @override
+  onInit() {
+    super.onInit();
+    trendSellerController();
+    trendProductController();
+    newArrivalController();
+    newShopController();
+    productsController();
+  }
+
 //CONTROLLER TRENDING SELLER
   Future trendSellerController() async {
     try {

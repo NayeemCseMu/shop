@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shop/module/dashboard/screens/splash/splash.dart';
+import 'package:shop/utils/helpers/binding.dart';
 import 'config/routes/route.dart';
-import 'module/dashboard/screens/home/home_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: HomeScreen.routeName,
+      initialBinding: AppBinding(),
+      initialRoute: Splash.routeName,
       routes: routes,
     );
   }

@@ -22,9 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    dataController = Get.put(DataController());
+    dataController = Get.find();
     scrollController.addListener(listen);
-    _getLoad();
   }
 
   listen() {
